@@ -1,18 +1,20 @@
 <template>
-  <div class="container">
-    <AddUser />
-    <Users />
-  </div>
+  <div id="main">
+        <header id="header">
+            <Menu></Menu>
+        </header>
+        <div id="content">
+            <router-view></router-view>
+        </div>
+    </div>
 </template>
 
 <script>
-import AddUser from '../src/components/AddUser'
-import Users from '../src/components/Users'
+import Menu from './components/Menu.vue'
 export default {
   name: 'App',
   components: {
-    AddUser,
-    Users
+      Menu
   }
 }
 </script>
