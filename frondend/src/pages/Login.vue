@@ -64,7 +64,7 @@
             app.error = res.response.data.error
           },
           rememberMe: true,
-          fetchUser: false
+          fetchUser: true
         })
       }
     }
