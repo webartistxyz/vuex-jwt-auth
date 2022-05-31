@@ -1,12 +1,10 @@
-import VueRouter from 'vue-router'
-
-// Pages
-import Home from '../pages/Home'
-// import About from './pages/About'
-import Register from '../pages/Register'
-import Login from '../pages/Login'
-import Dashboard from '../pages/user/Dashboard'
-// import AdminDashboard from './pages/admin/Dashboard'
+import VueRouter from 'vue-router';
+import Home from '../pages/index';
+import Register from '../pages/user/Register';
+import Login from '../pages/user/Login';
+import Dashboard from '../pages/user/Dashboard';
+import Users from '../pages/vuex_example/Users';
+import AddUser from '../pages/vuex_example/AddUser';
 
 // Routes
 const routes = [
@@ -18,14 +16,6 @@ const routes = [
       auth: undefined
     }
   },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   component: About,
-  //   meta: {
-  //     auth: undefined
-  //   }
-  // },
   {
     path: '/register',
     name: 'register',
@@ -50,7 +40,24 @@ const routes = [
     meta: {
       auth: true
     }
+    // meta: { requiresAuth: true }  // add this
   },
+  {
+    path: '/users',
+    name: 'users',
+    component: Users,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/add-user',
+    name: 'add_user',
+    component: AddUser,
+    meta: {
+      auth: true
+    }
+  }
 ]
 const router = new VueRouter({
   history: true,
@@ -58,3 +65,22 @@ const router = new VueRouter({
   routes,
 })
 export default router
+
+
+// router.beforeEach((to, from, next) => {
+
+//   // check if the route requires authentication and user is not logged in
+//   if (to.matched.some(route => route.meta.requiresAuth) && !store.state.isLoggedIn) {
+//       // redirect to login page
+//       next({ name: 'login' })
+//       return
+//   }
+
+//   // if logged in redirect to dashboard
+//   if(to.path === '/login' && store.state.isLoggedIn) {
+//       next({ name: 'dashboard' })
+//       return
+//   }
+
+//   next()
+// })

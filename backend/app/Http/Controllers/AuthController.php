@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
+    private $headers = [];
     /**
      * Create a new AuthController instance.
      *
@@ -18,6 +19,20 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login']]);
+    }
+
+    /**
+     * @param $token
+     * @return array
+     *
+     */
+
+    private function makeHeaders($token): array
+    {
+        return ['Authorization' => $token,
+            'access-control-allow-origin' => '*',
+            'access-control-expose-headers' => 'Cache-Control, Content-Language, Content-Type, Expires, Last-Modified, Pragma, Authorization, Version-Www, Version-Api'
+        ];
     }
 
     /**
@@ -71,10 +86,7 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
         if ($token = $this->guard()->attempt($credentials)) {
-            return response()->json(['status' => 'success'], 200)->withHeaders(['Authorization' => $token,
-                'access-control-allow-origin' => '*',
-                'access-control-expose-headers' => 'Cache-Control, Content-Language, Content-Type, Expires, Last-Modified, Pragma, Authorization, Version-Www, Version-Api'
-            ]);
+            return response()->json(['status' => 'success'], 200)->withHeaders($this->makeHeaders($token));
         }
         return response()->json(['error' => 'login_error'], 401);
     }
@@ -145,7 +157,7 @@ class AuthController extends Controller
         if ($token = $this->guard()->refresh()) {
             return response()
                 ->json(['status' => 'successs'], 200)
-                ->header('Authorization', $token);
+                ->withHeaders($this->makeHeaders($token));
         }
         return response()->json(['error' => 'refresh_token_error'], 401);
     }

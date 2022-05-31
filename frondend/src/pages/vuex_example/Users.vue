@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="col-8 offset-2">
     <ul class="list-group mt-5">
       <li class="list-group-item list-group-item-action" v-for="user in usersList" :key="user.id">
 

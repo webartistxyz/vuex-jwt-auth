@@ -41,7 +41,7 @@ use App\Http\Controllers\AuthController;
     Route::prefix('auth')->group(function () {
         // Below mention routes are public, user can access those without any restriction.
         // Create New User
-        Route::post('register', 'AuthController@register');
+        Route::post('register', [AuthController::class, 'register']);
         // Login User
         Route::post('login', [AuthController::class, 'login']);
         Route::get('user', [AuthController::class, 'user']);
@@ -54,6 +54,6 @@ use App\Http\Controllers\AuthController;
             // Get user info
 
             // Logout user from application
-            Route::post('logout', 'AuthController@logout');
+            Route::post('logout', [AuthController::class, 'logout']);
         });
     });

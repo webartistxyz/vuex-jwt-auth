@@ -21,8 +21,8 @@ const config = {
   loginData: {
     url: 'auth/login', 
     method: 'POST', 
-    redirect: '', 
-    fetchUser: true
+    redirect: 'dashboard', 
+    fetchUser: false
   },
   logoutData: {
     url: 'auth/logout', 
@@ -39,6 +39,7 @@ const config = {
     url: 'auth/refresh', 
     method: 'GET', 
     enabled: true, 
+    fetchUser: false,
     interval: 30
   }
 }
